@@ -1,16 +1,15 @@
-import type { User } from 'next-auth';
-import NextAuth from 'next-auth';
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from 'next-auth/providers/credentials';
+import type { AuthOptions, User } from 'next-auth'
+import GoggleProvider from 'next-auth/providers/google'
+import Credentials from 'next-auth/providers/credentials'
 import { users } from '@/data/users';
 
-export const authOptions = {
+export const authConfig: AuthOptions = {
   providers: [
-   GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID!,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET!
-      }),
-    CredentialsProvider({
+    GoggleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+    Credentials({
       credentials: {
         email: { label: 'email', type: 'email', required: true },
         password: { label: 'password', type: 'password', required: true },
@@ -33,5 +32,4 @@ export const authOptions = {
   pages: {
     signIn: '/signin'
   }
-};
-
+}
