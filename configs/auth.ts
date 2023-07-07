@@ -1,11 +1,17 @@
 //import NextAuth from 'next-auth';
-import type { AuthOptions, User } from 'next-auth'
+import type { AuthOptions, User } from 'next-auth';
+
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
 import GoggleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { users } from '@/data/users';
 
-export const authConfig: AuthOptions = {
+const prisma = new PrismaClient();
+
+export const authOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoggleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
