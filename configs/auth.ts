@@ -1,5 +1,5 @@
-//import NextAuth from 'next-auth';
-import type { AuthOptions, User } from 'next-auth';
+import NextAuth, { NextAuthOptions } from "next-auth";
+import type { User } from 'next-auth';
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
@@ -10,7 +10,7 @@ import { users } from '@/data/users';
 
 const prisma = new PrismaClient();
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoggleProvider({
@@ -42,5 +42,6 @@ export const authOptions = {
   }
 };
 
- 
 
+
+export default NextAuth(authOptions);
