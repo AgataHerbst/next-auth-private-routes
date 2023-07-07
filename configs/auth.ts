@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import type { User } from 'next-auth';
+import type { Adapter } from 'next-auth/adapters';
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
@@ -11,7 +12,7 @@ import { users } from '@/data/users';
 const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoggleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
